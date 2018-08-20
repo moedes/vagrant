@@ -1,7 +1,8 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "puppetlabs/ubuntu-16.04-32-puppet"
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
-  config.vm.network "public_network"
+  config.vm.box = "ubuntu/xenial64"
   config.vm.provision "file", source: "default", destination: "/home/vagrant" 
-  config.vm.provision "shell", path: "nginx.sh"
+  config.vm.provision "shell", path: "puppet-install.sh"
+  config.vm.provision "puppet" do |puppet|
+    puppet.module_path = "modules"
+  end
 end
